@@ -50,7 +50,7 @@ const RegisterModal = () => {
     const bodyContent = (
         <div className='flex flex-col gap-4'>
            <Heading
-                title="Welcome! Stay Awhile!"
+                title="Come on in! Stay Awhile!"
                 subtitle="Create an account!"
                 center
             />
