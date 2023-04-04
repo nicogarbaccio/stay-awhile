@@ -8,7 +8,9 @@ import bcrypt from "bcrypt";
 import prisma from "@/app/libs/prismadb"
 
 export const authOptions: AuthOptions = {
+    // Specifying the adapter to be used for authentication with the PrismaAdapter
     adapter: PrismaAdapter(prisma),
+    // Configuring providers such as GithubProvider, GoogleProvider, and CredentialsProvider
     providers: [
         GithubProvider({
             clientId: process.env.GITHUB_ID as string,
@@ -28,29 +30,31 @@ export const authOptions: AuthOptions = {
                 if (!credentials?.email || !credentials?.password) {
                     throw new Error("Invalid credentials")
                 }
-
+                // Querying the Prisma user object based on the email provided
                 const user = await prisma.user.findUnique({
                     where: {
                         email: credentials.email
                     }
                 });
+                // If the user object or hashedPassword field is empty, throw an error
                 if (!user || !user.hashedPassword) {
                     throw new Error("Invalid credentials")
                 }
-
+                // Comparing the entered password with the hashed password in the user object
                 const isCorrectPassword = await bcrypt.compare(
                     credentials.password,
                     user.hashedPassword
                 );
-
+                // If the entered password is incorrect, throw an error
                 if (!isCorrectPassword) {
                     throw new Error("Invalid credentials")
                 }
-
+                // If the entered credentials are valid, return the user object
                 return user;
             }
         })
     ],
+    // Specifying the pages to be used for authentication such as sign in
     pages: {
         signIn: "/",
     },
