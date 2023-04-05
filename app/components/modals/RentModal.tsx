@@ -15,6 +15,7 @@ import axios from "axios";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
+// Enum for tracking the current step in the listing creation process
 enum STEPS {
     CATEGORY = 0,
     LOCATION = 1,
@@ -26,11 +27,14 @@ enum STEPS {
 
 const RentModal = () => {
     const router = useRouter();
+    // Use custom hook to manage modal state
     const rentModal = useRentModal();
 
+    // Use useState hook to keep track of the current step and loading state
     const [step, setStep] = useState(STEPS.CATEGORY);
     const [isLoading, setIsLoading] = useState(false);
-
+    
+    // Use react-hook-form to manage form state and validation
     const {
         register,
         handleSubmit,
@@ -54,6 +58,7 @@ const RentModal = () => {
         }
     })
 
+    // Use watch to keep track of form input values
     const category = watch('category');
     const location = watch('location');
     const guestCount = watch('guestCount');
@@ -61,10 +66,12 @@ const RentModal = () => {
     const bathroomCount = watch('bathroomCount');
     const imageSrc = watch('imageSrc');
 
+    // Use useMemo and dynamic to lazy-load the Map component only when needed
     const Map = useMemo(() => dynamic(() => import('../Map'), {
         ssr: false
     }), [location]);
 
+    // Define a custom function for setting form input values
     const setCustomValue = (id: string, value: any) => {
         setValue(id, value, {
             shouldDirty: true,
@@ -73,6 +80,7 @@ const RentModal = () => {
         });
     }
 
+    // Define event handlers for navigating between form steps
     const onBack = () => {
         setStep((value) => value - 1);
     }
@@ -81,14 +89,18 @@ const RentModal = () => {
         setStep((value) => value + 1);
     }
 
+    // Define the submit event handler for the form
     const onSubmit: SubmitHandler<FieldValues> = (data) => {
+        // If the current step is not the final step, move to the next step
         if (step !== STEPS.PRICE) {
             return onNext();
         }
+        // Otherwise, set the loading state and send the completed form data to the server for processing
         setIsLoading(true);
 
         axios.post('/api/listings', data)
         .then(() => {
+            // Display a success message and reset the form
             toast.success('Listing created!');
             router.refresh();
             reset();
@@ -96,12 +108,15 @@ const RentModal = () => {
             rentModal.onClose();
         })
         .catch(() => {
+            // Display an error message
             toast.error('Something went wrong!');
         }).finally(() => {
+            // Reset the loading state
             setIsLoading(false);
         })
     }
 
+    // Use useMemo to set the labels for the primary and secondary action buttons based on the current step
     const actionLabel = useMemo(() => {
         if (step === STEPS.PRICE) {
             return 'Create';
@@ -116,6 +131,7 @@ const RentModal = () => {
         return 'Back';
     }, [step])
 
+    // Define the body content of the modal based on the current step
     let bodyContent = (
         <div className="flex flex-col gap-8">
             <Heading 
@@ -262,3 +278,16 @@ const RentModal = () => {
 }
 
 export default RentModal;
+
+/* This code file implements a modal for creating a new rental listing on a website. It contains the following components:
+
+- useRentModal: a custom hook for managing the open/closed state of the modal
+- Modal: a reusable component for rendering modals
+- useMemo and useState hooks from React
+- Heading, CategoryInput, CountrySelect, Map, Counter, ImageUpload, and Input: custom input components
+- axios for making HTTP requests
+- toast for displaying success and error messages
+- useRouter for navigating the user back to the main page of the website
+- STEPS enum for keeping track of the current step in the listing creation process
+
+The RentModal component defines the structure of the modal and the workflow for creating a new rental listing. It starts with a single step - selecting a category - and progresses through additional steps as the user enters information. The final step is submitting the completed form to the server for processing. */
