@@ -21,8 +21,12 @@ const CountrySelect: React.FC<CountrySelectProps> = ({ value, onChange }) => {
     const { getAll } = useCountries();
     return (
         <div>
-            <Select placeholder="Anywhere" isClearable options={getAll()} value={value}
-            onChange={(value) => onChange(value as CountrySelectValue)} formatOptionLabel={(option: any) => (
+            <Select 
+                placeholder="Anywhere" 
+                isClearable // Allow the user to clear the selected value
+                options={getAll()} // Fetch the list of countries as options
+                value={value} // Pass the current selected value
+                onChange={(value) => onChange(value as CountrySelectValue)} formatOptionLabel={(option: any) => (
                 <div className='flex flex-row items-center gap-3'>
                     <div>{option.flag}</div>
                     <div>{option.label}, <span className='text-neutral-500 ml-1'>{option.region}
