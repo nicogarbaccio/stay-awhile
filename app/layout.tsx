@@ -1,4 +1,4 @@
-import { Nunito } from "next/font/google"
+import { Nunito, Roboto, Inter } from "next/font/google"
 import Navbar from "./components/navbar/Navbar"
 
 import './globals.css'
@@ -14,9 +14,14 @@ export const metadata = {
   description: 'Inspired by Airbnb',
 }
 
-const font = Nunito({
-  subsets: ["latin"],
-});
+// const font = Nunito({
+//   subsets: ["latin"],
+// });
+
+const font = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+})
 
 export default async function RootLayout({
   children,
@@ -34,7 +39,9 @@ export default async function RootLayout({
           <RegisterModal />
           <Navbar currentUser={currentUser} />
         </ClientOnly>
-        {children}
+        <div className="pb-20 pt-28">
+          {children}
+        </div>
       </body>
     </html>
   )
