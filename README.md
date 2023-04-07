@@ -4,6 +4,8 @@
 
 ### [LIVE SITE](https://stay-awhile.vercel.app/)
 
+![Stay Awhile](https://imgur.com/jfR4OQz)
+
 ### Features:
 
 - Tailwind design, animation, and effects
