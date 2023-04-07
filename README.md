@@ -15,6 +15,7 @@
 - Client form validation and handling using react-hook-form
 - Server error handling using react-toast
 - Calendars with react-date-range
+- Maps via React Leaflet
 - Page loading state
 - Page empty state
 - Booking / Reservation system
