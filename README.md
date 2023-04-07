@@ -2,6 +2,8 @@
 ## Full Stack short-term rental marketplace inspired by Airbnb 
 ### Built with Next.js 13, React, Prisma, MongoDB, NextAuth, and Tailwind CSS
 
+### [LIVE SITE](https://stay-awhile.vercel.app/)
+
 ### Features:
 
 - Tailwind design
