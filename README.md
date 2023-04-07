@@ -6,9 +6,8 @@
 
 ### Features:
 
-- Tailwind design
-- Tailwind animations and effects
-- Full responsiveness
+- Tailwind design, animation, and effects
+- Fully responsive on all screen sizes
 - Credential authentication
 - Google authentication
 - Github authentication
@@ -24,14 +23,13 @@
 - Creation and deletion of properties
 - Pricing calculation
 - Advanced search algorithm by category, date range, map location, number of guests, rooms and bathrooms
-    - For example we will filter out properties that have a reservation in your desired date range to travel
-- Favorites system
+    - For example, properties that have a reservation in your desired date range to travel will be filtered out
+- Favorites system & page
 - Shareable URL filters
-    - Lets say you select a category, location and date range, you will be able to share URL with a logged out friend in another browser and they will see the same results
-- How to write POST and DELETE routes in route handlers (app/api)
-- How to fetch data in server react components by directly accessing database (WITHOUT API! like Magic!)
-- How to handle files like error.tsx and loading.tsx which are new Next 13 templating files to unify loading and error handling
-- How to handle relations between Server and Child components!
+    - If you select a category, location and date range, you will be able to share a URL with a logged out friend in another browser and they will see the same results
+- Used Prisma to define and generate the database schema, and then used Prisma's MongoDB connector to interact with the MongoDB database based on the schema definition.
+- Fetched data in server react components by directly accessing MongoDB database
+- Used new Next.js 13 template files like error.tsx and loading.tsx to unify loading and error handling
 
 ### Prerequisites
 
